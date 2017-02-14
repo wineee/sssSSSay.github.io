@@ -39,3 +39,7 @@ exclude:
 
 
 gems: [jekyll-seo-tag, jekyll-paginate]
+
+markdown: redcarpet
+redcarpet:
+    extensions: ["fenced_code_blocks", "autolink", "tables", "strikethrough"]
