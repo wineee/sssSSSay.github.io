@@ -1,9 +1,4 @@
----
-title: Contact
-layout: post
-permalink: /contact/
----
 
-May be a contact form.
+#May be a contact form.
 
-Email: <a href="mailto:{{site.email}}">{{site.email}}</a>
+##QQ: <a href="mailto:{{site.email}}">1094238312</a>
