@@ -39,3 +39,6 @@ exclude:
 
 
 gems: [jekyll-seo-tag, jekyll-paginate]
+
+markdown: rdiscount
+pygments: true
