@@ -7,7 +7,7 @@ email: 1094238312@QQ.com
 
 
 highlighter: rouge
-markdown: kramdown
+markdown: markdown
 ### exclude the instructions / write-up in the README.md
 
 
@@ -39,7 +39,3 @@ exclude:
 
 
 gems: [jekyll-seo-tag, jekyll-paginate]
-
-markdown: redcarpet
-redcarpet:
-    extensions: ["fenced_code_blocks", "autolink", "tables", "strikethrough"]
