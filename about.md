@@ -1,5 +1,5 @@
 ---
-title: About Hagura
+title: About sSay
 layout: post
 permalink: /about/
 published: true
