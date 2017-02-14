@@ -5,6 +5,6 @@ permalink: /about/
 published: true
 ---
 
-#OIer
+OIer
 
-##For more article please visit [http://blog.csdn.net/ssssssay](http://blog.csdn.net/ssssssay)
+For more article please visit [http://blog.csdn.net/ssssssay](http://blog.csdn.net/ssssssay)
