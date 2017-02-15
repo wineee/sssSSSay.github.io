@@ -6,6 +6,7 @@ email: 1094238312@QQ.com
 
 highlighter: rouge
 markdown: kramdown
+rouge: true
 
 ### exclude the instructions / write-up in the README.md
 
