@@ -4,7 +4,8 @@ title: sssSSSay
 baseurl: /sssSSSay.github.io # name of the repository
 email: 1094238312@QQ.com
 
-
+highlighter: rouge
+markdown: kramdown
 
 ### exclude the instructions / write-up in the README.md
 
@@ -28,10 +29,6 @@ compress_html:
   profile: false
   startings: []
   
-markdown: redcarpet
-redcarpet:
-    extensions: ["fenced_code_blocks", "autolink", "tables", "strikethrough"]
-
 sass:
  style: compressed
 
