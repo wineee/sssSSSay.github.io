@@ -1,3 +1,7 @@
+/*
+Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-license.org/
+*/
+
 .hljs {
   display: block;
   overflow-x: auto;
@@ -34,12 +38,10 @@
 
 .hljs-strong {
   font-weight: bold;
-  font-family:'Consolas',monospace;
 }
 
 .hljs-emphasis {
   font-style: italic;
-  font-family:'Consolas',monospace;
 }
 
 .hljs-keyword,
@@ -72,12 +74,8 @@
   color: #e6db74;
 }
 
-.hljs-deletion {
-    color: #e6db74;
-}
+.hljs-comment,
+.hljs-deletion,
 .hljs-meta {
-    color: #f92672;
-}
-.hljs-comment {
   color: #75715e;
 }
