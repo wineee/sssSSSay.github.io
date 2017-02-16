@@ -50,7 +50,7 @@ li.L3,
 li.L5,
 li.L7,
 li.L9 { background: #49483e }
-.prettyprint *{font-family:'courier new',monospace;}
+.prettyprint *{font-family:'Consolas',monospace;}
 .prettyprint .com { color: #0a0abb; }
 .prettyprint .lit { color: #9565ec; }
 .prettyprint .pun,
