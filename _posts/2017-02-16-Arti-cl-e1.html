@@ -7,7 +7,7 @@ layout: compress
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% if page.title %}{{ page.title }} - {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
-  <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+  <script type="text/javascript" src="google-code-prettify/js-modules/run_prettify.js"></script>
   <link href="css/monokai.css" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="{{site.baseurl}}/css/main.css">
   {% seo %}
@@ -22,13 +22,10 @@ layout: compress
 <div class="meta"><span>February 16, 2017</span></div>
 <h2 id="-page-_-">终于把这个Page搞出来了好开心\^_^/</h2>
 <pre class="prettyprint">
-
-#include "x.h"
-
-main(){
-
+#include "stdin.h"
+using namespace std;
+int main(){
     print("hello world!");
-
 }
 
 </pre>
