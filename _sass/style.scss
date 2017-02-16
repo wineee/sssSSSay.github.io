@@ -77,7 +77,7 @@ code {
 }
 code {
     padding: 0.1em;
-	border: 1px solid $brand-color;
+	border: 1px solid $brand-color !important;
 }
 blockquote {
     border-left: 2px solid $brand-color;
