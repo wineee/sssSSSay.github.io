@@ -72,11 +72,11 @@ pre,
 code {
     font-size: 0.7*$base-font-size;
     > code {
-        border: none;
+        border: 1px solid $brand-color !important;
     }
 }
 code {
-    padding: 0.2em;
+    padding: 0.4em;
 	border: 1px solid $brand-color !important;
 	font-family:Inconsolata,consolas,Georgia;
 }
