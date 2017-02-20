@@ -366,6 +366,84 @@ int main(){
     return 0;
 }
 </code></pre>
+<h1 id="1007"> 1007</h1>
+<pre><code class = "c++">#include &lt;cmath&gt;
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+
+#define eps 1e-8
+
+using namespace std;
+
+const int Maxn = 500010;
+
+struct node {double a,b;int p;}l[Maxn];
+
+double p[Maxn];
+int n,top,s[Maxn],Ans[Maxn];
+
+bool comp(node x,node y){
+    if(fabs(x.a - y.a) &lt; eps)return x.b &lt; y.b;
+    return x.a &gt; y.a;
+}
+
+double Solve(int x,int y){return (l[y].b - l[x].b) / (l[x].a - l[y].a);}
+
+int main(){
+    // freopen(&quot;bzoj_1007.in&quot;,&quot;r&quot;,stdin);
+    // freopen(&quot;bzoj_1007.out&quot;,&quot;w&quot;,stdout);
+    scanf(&quot;%d&quot;,&amp;n);
+    for(int i=1;i&lt;=n;i++){scanf(&quot;%lf%lf&quot;,&amp;l[i].a,&amp;l[i].b);l[i].p = i;}
+    sort(l + 1,l + n + 1,comp);
+    for(int i=1;i&lt;=n;i++){
+        while(top){
+            if(fabs(l[s[top]].a - l[i].a) &lt; eps)top--;
+            else if(top &gt; 1 &amp;&amp; Solve(i,s[top]) &gt;= Solve(s[top],s[top - 1]))top--;
+            else break;
+        }s[++top] = i;
+    }
+    for(int i=1;i&lt;=top;i++)Ans[l[s[i]].p] = 1;
+    for(int i=1;i&lt;=n;i++)if(Ans[i])printf(&quot;%d &quot;,i);
+    // while(1);
+    return 0;
+}
+</code></pre>
+<h1 id="1008"> 1008</h1>
+<pre><code class = "c++">#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;iostream&gt;
+
+#define p 100003LL
+
+typedef long long LL;
+
+using namespace std;
+
+LL m,n;
+
+LL Pow(LL a,LL n){
+    LL c = 1;
+    while(n){
+        if(n &amp; 1)c = (c * a) % p;
+        a = (a * a) % p;
+        n = n / 2;
+    }return c % p;
+}
+
+int main(){
+    scanf(&quot;%lld%lld&quot;,&amp;m,&amp;n);
+    // printf(&quot;%d\n&quot;,Pow(m,n));
+    LL Temp = Pow(m,n) - (Pow(m - 1,n - 1) * m),j = 1;
+    // printf(&quot;%lld\n&quot;,Temp);
+    while(Temp &lt; 0)Temp += Pow(2,j++) * p;
+    printf(&quot;%lld\n&quot;,Temp % p);
+    // while(1);
+    return 0;
+}
+</code></pre>
+
 <h2 id="-">手动把空格去掉了看起来比较密集= =</h2>
 
 
