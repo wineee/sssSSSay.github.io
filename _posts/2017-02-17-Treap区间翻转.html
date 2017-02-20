@@ -1,0 +1,159 @@
+---
+layout: compress
+---
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if page.title %}{{ page.title }} - {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+  <link rel="stylesheet" href="{{site.baseurl}}/css/main.css">
+  <link rel="stylesheet" href="{{site.baseurl}}/css/monokai-sublime.css">
+  {% seo %}
+</head>
+<body style="background-color: rgb(255, 255, 255)">
+ <script src="{{site.baseurl}}/js/theme.min.js"></script>
+  <script src="{{site.baseurl}}/js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <header>
+      <a href="{{site.baseurl}}/"><div class="home"></div></a>
+  </header>
+
+
+
+
+<h1 class="post-headline">Treap区间翻转</h1>
+<div class="meta"><span>February 20, 2017</span></div>
+
+<h1 id="-merge-split-">通过Merge和Split操作进行区间提取打标记</h1>
+
+<pre><code class = "c++">#include &lt;time.h&gt;
+#include &lt;cstdio&gt;
+#include &lt;cstdlib&gt;
+#include &lt;cstring&gt;
+#include &lt;iostream&gt;
+
+#define val (o -&gt; v)
+#define siz (o -&gt; s)
+#define pre (o -&gt; p)
+#define tag (o -&gt; t)
+#define Lc (o -&gt; ch[0])
+#define Rc (o -&gt; ch[1])
+
+using namespace std;
+
+const int Maxn = 101000;
+
+struct Treap {
+    int v,p,s,t;
+    Treap* ch[2];
+};
+
+Treap* Root;
+int n,m;
+
+typedef pair&lt;Treap*,Treap*&gt; Troot;
+
+int S(Treap* o){if(o == NULL){return 0;}return siz;}
+
+Treap* NewNode(int k,int w){Treap* o = new Treap();val = k;pre = w;siz = 1;tag = 0;return o;}
+
+void PushDown(Treap* o){
+    if(o == NULL)return;
+    if(!tag)return;
+    if(Lc)Lc -&gt; t ^= 1;
+    if(Rc)Rc -&gt; t ^= 1;
+    tag = 0;swap(Lc,Rc);
+}
+
+void Update(Treap* o){siz = 1 + S(Lc) + S(Rc);}
+
+Treap* Merge(Treap* A,Treap* B){
+    if(A == NULL)return B;
+    if(B == NULL)return A;
+    PushDown(A);PushDown(B);
+    if(A -&gt; p &lt; B -&gt; p){A -&gt; ch[1] = Merge(A -&gt; ch[1],B);Update(A);return A;}
+    else {B -&gt; ch[0] = Merge(A,B -&gt; ch[0]);Update(B);return B;}
+}
+
+Troot Split(Treap* o,int k){
+    Troot Temp(NULL,NULL);
+    if(o == NULL)return Temp;
+    PushDown(o);int LcSize = S(Lc),RcSize = S(Rc);
+    if(k &lt;= LcSize){
+        Temp = Split(Lc,k);Lc = Temp.second;
+        Update(o);Temp.second = o;
+    }
+    else {
+        Temp = Split(Rc,k - LcSize - 1);
+        Rc = Temp.first;Update(o);Temp.first = o;
+    }return Temp;
+}
+
+void Insert(Treap* &amp;o,int k){
+    Treap* Now = NewNode(k,rand());
+    PushDown(o);o = Merge(o,Now);
+}
+
+void Turn(int L,int R){
+    Troot Temp1 = Split(Root,R);
+    Troot Temp2 = Split(Temp1.first,L-1);
+    if(Temp2.second != NULL)Temp2.second -&gt; t ^= 1;
+    Root = NULL;
+    Root = Merge(Temp2.first,Temp2.second);
+    Root = Merge(Root,Temp1.second);
+}
+
+void Ans(Treap* o){
+    if(tag != 0)PushDown(o);
+    if(Lc != NULL)Ans(Lc);
+    printf(&quot;%d &quot;,val);
+    if(Rc != NULL)Ans(Rc);
+}
+
+int main(){
+    freopen(&quot;phs.in&quot;,&quot;r&quot;,stdin);
+    freopen(&quot;phs.out&quot;,&quot;w&quot;,stdout);
+    srand(time(NULL));
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);Root = NULL;
+    for(int i=1;i&lt;=n;i++)Insert(Root,i);
+    for(int i=1;i&lt;=m;i++){
+        int L,R;scanf(&quot;%d%d&quot;,&amp;L,&amp;R);
+        Turn(L,R);
+    }
+    Ans(Root);
+    return 0;
+}
+</code></pre>
+
+
+
+<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="10002" data-title="Treap" data-url="https://ssssssay.github.io/sssSSSay.github.io/2017/02/17/Treap%E6%A8%A1%E6%9D%BF.html"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"sssSSSay"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+
+
+<footer>
+    <div class="links">
+        <a href="{{site.baseurl}}/about/">About</a>
+        <a href="{{site.baseurl}}/contact/">Contact</a>
+    </div>
+    <div class="theme" onclick="theme()" style="    background-image: url({{site.baseurl}}/images/theme.svg)"></div>
+</footer>
+{% include analytics.html %}
+
+</body>
+</html>
