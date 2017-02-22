@@ -545,7 +545,41 @@ int main(){
     return 0;
 }
 </code></pre>
+<h1 id = "1011">1011</h1>
+<pre><code class = "c++">#include &lt;cmath&gt;
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;iostream&gt;
+//允许有误差?什么鬼东西...
+using namespace std;
 
+const int Maxn = 100010;
+
+int n;
+double A,Sum[Maxn],c[Maxn],m[Maxn];
+
+int main(){
+    // freopen(&quot;bzoj_1011_planet.in&quot;,&quot;r&quot;,stdin);
+    // freopen(&quot;bzoj_1011_planet.out&quot;,&quot;w&quot;,stdout);
+    scanf(&quot;%d%lf&quot;,&amp;n,&amp;A);
+    for(int i=1;i&lt;=n;i++){
+        scanf(&quot;%lf&quot;,&amp;m[i]);
+        Sum[i] = Sum[i-1] + m[i];
+    }int Up = min(5000,n);
+    for(int i=1;i&lt;=Up;i++){//小数据保证正确性
+        int k = floor(A * (double)i);
+        for(int j=1;j&lt;=k;j++)c[i] += m[j] / (double)(i - j);
+        c[i] *= m[i];
+    }
+    for(int i=Up+1;i&lt;=n;i++){//大数据进行估计
+        int k = floor(A * (double)i);
+        c[i] = m[i] * Sum[k] / ((double)i - ((double)k / 2.0));
+    }
+    for(int i=1;i&lt;=n;i++)printf(&quot;%.6lf\n&quot;,c[i]);
+    // while(1);
+    return 0;
+}
+</code></pre>
 
 
 
