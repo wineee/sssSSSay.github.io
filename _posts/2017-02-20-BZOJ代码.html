@@ -27,6 +27,7 @@ layout: compress
 
 <h1 id="1000">1000</h1>
 <pre><code class = "c++">#include &lt;iostream&gt;
+//居然不是第一题
 using namespace std;
 int main(){
     int a,b;
@@ -76,9 +77,9 @@ int Max_Flow(int x,int Min){
             used += w;
             E[i].val -= w;
             E[i+1].val += w;
-            if(used == Min)return Min;
+            if(used == Min)return Min;//必须加之优化圈1
         }
-    }if(!used)dis[x] = -1;
+    }if(!used)dis[x] = -1;//必须加之优化圈2
     return used;
 }
 int main(){
@@ -110,7 +111,7 @@ int main(){
 <pre><code class = "c++">#include &lt;cstdio&gt;
 #include &lt;cstring&gt;
 #include &lt;iostream&gt;
-//by sssSSSay
+//by sssSSSay 基尔霍夫矩阵我当然是不会的QWQ
 //eh^ zhao gui lv
 //f[1] = 1;f[2] = 3;f[i] = f[i-1] + f[i-2]
 //F[i] = f[i] * f[i] - (i % 2 == 0) * 4
@@ -166,7 +167,7 @@ int main(){
 #include &lt;cstring&gt;
 #include &lt;iostream&gt;
 //By sssSSSay
-//DP
+//DP 有点类似区间DP 在天数上跑
 typedef long long LL;
 #define INF 100000007
 using namespace std;
@@ -215,11 +216,12 @@ int main(){
     }
     for(int i=1;i&lt;=n;i++){
         for(int j=i;j&lt;=n;j++)Dp[i][j] = (LL)Spfa(i,j);
+	//预处理i和j之间跑同一条路时的最小花费
     }
     for(int i=1;i&lt;=n;i++){
-        f[i] = (LL)Dp[1][i] * (LL)i;
+        f[i] = (LL)Dp[1][i] * (LL)i;//初值
         for(int j=0;j&lt;i;j++)f[i] = min(f[i],f[j] + (LL)k + Dp[j+1][i] * (LL)(i - j));
-    }
+    }//然后枚举一个断点
     printf(&quot;%d\n&quot;,f[n]);
     return 0;
 }
@@ -227,13 +229,15 @@ int main(){
 <pre><code class = "c++">#include &lt;cstdio&gt;
 #include &lt;cstring&gt;
 #include &lt;iostream&gt;
+//置换群什么东西先挖个坑
+//这道题可用组合数来写一写┑(￣Д ￣)┍
 typedef long long LL;
 using namespace std;
 const int Maxn = 201;
 int C[Maxn][Maxn];
 int Sr,Sg,Sb,n,p,m;
 void Solve(){
-    for(int i=2;i&lt;=n+1;i++){
+    for(int i=2;i&lt;=n+1;i++){//递推组合数
         for(int j=0;j&lt;=i;j++){
             C[i][j] = (C[i][j] + C[i-1][j]) % p;
             if(j != 0)C[i][j] = (C[i][j] + C[i-1][j-1]) % p;
@@ -242,7 +246,7 @@ void Solve(){
 }
 LL Pow(int a,int n){
     int c = 1;
-    while(n){
+    while(n){//快速幂
         if(n &amp; 1)c = (c * a) % p;
         a = (a * a) % p;
         n = n &gt;&gt; 1;
@@ -251,9 +255,9 @@ LL Pow(int a,int n){
 int main(){
     scanf(&quot;%d%d%d%d%d&quot;,&amp;Sr,&amp;Sb,&amp;Sg,&amp;m,&amp;p);
     C[1][0] = 1;C[1][1] = 1;
-    n = Sr + Sb + Sg;Solve();
-    LL S = ((LL)C[n][Sr] * (LL)C[n - Sr][Sg]) % p;
-    printf(&quot;%lld&quot;,(S * Pow(m + 1,p - 2)) % p);
+    n = Sr + Sb + Sg;Solve();//每个排列通过m中变换可以变出m+1种
+    LL S = ((LL)C[n][Sr] * (LL)C[n - Sr][Sg]) % p;//S是理论上所有的排列
+    printf(&quot;%lld&quot;,(S * Pow(m + 1,p - 2)) % p);//S需要除以(m+1)而m+1&lt;p 所以m+1的逆元是Pow那个东西
     // while(1);
     return 0;
 }
@@ -262,6 +266,9 @@ int main(){
 #include &lt;cstdio&gt;
 #include &lt;cstring&gt;
 #include &lt;iostream&gt;
+//Prufer序列 任何一颗无根树都可以对应一个唯一的Prufer序列
+//题意即为求Prufer序列的个数 而某个点出现的次数与度数有关
+//组合数解一解就可以了 数很大要质因数分解然后高精乘乘起来
 #define p 1000000
 using namespace std;
 const int Maxn = 1010;
@@ -270,7 +277,7 @@ inline bool Judge(int x){int N = sqrt(x);
     for(int i=2;i&lt;=N;i++)if(x % i == 0)return 0;
     return 1;
 }
-void Mul(int x){
+void Mul(int x){//乘法
     for(int i=1;i&lt;=LenAns;i++)Ans[i] *= x;
     for(int i=1;i&lt;=LenAns;i++){
         Ans[i + 1] += Ans[i] / p;
@@ -278,7 +285,7 @@ void Mul(int x){
     }
     while(Ans[LenAns + 1] &gt; 0){LenAns++;Ans[LenAns + 1] += Ans[LenAns] / p;Ans[LenAns]  %= p;}
 }
-void Solve(int x,int c){
+void Solve(int x,int c){//质因数分解
     for(int i=1;i&lt;=x;i++){
         int k = i;
         for(int j=1;j&lt;=cnt;j++){
@@ -298,7 +305,7 @@ void Print(){
 }
 int main(){
     scanf(&quot;%d&quot;,&amp;n);Ans[1] = 1;LenAns = 1;
-    if(n == 1){
+    if(n == 1){//特判
         scanf(&quot;%d&quot;,&amp;d[1]);
         if(d[1] == 0)printf(&quot;1\n&quot;);
         else printf(&quot;0\n&quot;);
@@ -313,15 +320,15 @@ int main(){
         else if(d[i] != -1)tot += d[i] - 1;
         else m++;
     }
-    if(tot &gt; n - 2){
+    if(tot &gt; n - 2){//判断各种无解的情况
         printf(&quot;0\n&quot;);
         return 0;
     }
     for(int i=2;i&lt;=1000;i++)if(Judge(i))pri[++cnt] = i;
-    Solve(n - 2,1);Solve(n - 2 - tot,-1);
+    Solve(n - 2,1);Solve(n - 2 - tot,-1);//质因数分解
     for(int i=1;i&lt;=n;i++)if(d[i] != -1)Solve(d[i] - 1,-1);
     for(int i=1;i&lt;=cnt;i++){
-        for(int j=1;j&lt;=num[i];j++)Mul(pri[i]);
+        for(int j=1;j&lt;=num[i];j++)Mul(pri[i]);//乘起来
     }
     for(int i=1;i&lt;=n-tot-2;i++)Mul(m);
     Print();
@@ -331,7 +338,9 @@ int main(){
 <pre><code class = "c++">#include &lt;cstdio&gt;
 #include &lt;cstring&gt;
 #include &lt;iostream&gt;
-
+//题意给出的首先要知道是一张弦图。。即没有长度大于3的环
+//弦图的染色用完美消除序列搞一搞 构造方式代码里有
+//然后在这个序列上倒着贪心染色即可
 using namespace std;
 
 const int Maxn = 100100;
@@ -349,13 +358,13 @@ int main(){
         int x,y;scanf(&quot;%d%d&quot;,&amp;x,&amp;y);
         Insert(x,y);Insert(y,x);
     }
-    for(int i=n;i&gt;=1;i--){
+    for(int i=n;i&gt;=1;i--){//完美消除序列的构造
         int t = 0;
         for(int j=1;j&lt;=n;j++)if(!vis[j] &amp;&amp; d[j] &gt;= d[t])t = j;
         vis[t] = 1;q[i] = t;
         for(int j=H[t];j;j=E[j].next)d[E[j].to]++;
     }
-    for(int i=n;i&gt;=1;i--){
+    for(int i=n;i&gt;=1;i--){//倒着贪心
         int u = q[i],j;
         for(int k=H[u];k;k=E[k].next)hash[col[E[k].to]] = i;
         for(j=1;;j++)if(hash[j] != i)break;
@@ -372,9 +381,11 @@ int main(){
 #include &lt;cstring&gt;
 #include &lt;iostream&gt;
 #include &lt;algorithm&gt;
-
+//基础计算几何
+//按照斜率排一下序 维护一个从上可见直线编号的栈即可
+//判断交点位置来弹出不可见的直线
 #define eps 1e-8
-
+//坑爹精度问题
 using namespace std;
 
 const int Maxn = 500010;
@@ -399,12 +410,12 @@ int main(){
     sort(l + 1,l + n + 1,comp);
     for(int i=1;i&lt;=n;i++){
         while(top){
-            if(fabs(l[s[top]].a - l[i].a) &lt; eps)top--;
-            else if(top &gt; 1 &amp;&amp; Solve(i,s[top]) &gt;= Solve(s[top],s[top - 1]))top--;
+            if(fabs(l[s[top]].a - l[i].a) &lt; eps)top--;//斜率相同覆盖(之前y轴也排过序)
+            else if(top &gt; 1 &amp;&amp; Solve(i,s[top]) &gt;= Solve(s[top],s[top - 1]))top--;//交点关系
             else break;
-        }s[++top] = i;
+        }s[++top] = i;//加入
     }
-    for(int i=1;i&lt;=top;i++)Ans[l[s[i]].p] = 1;
+    for(int i=1;i&lt;=top;i++)Ans[l[s[i]].p] = 1;//按标号排序输出
     for(int i=1;i&lt;=n;i++)if(Ans[i])printf(&quot;%d &quot;,i);
     // while(1);
     return 0;
@@ -414,9 +425,9 @@ int main(){
 <pre><code class = "c++">#include &lt;cstdio&gt;
 #include &lt;cstring&gt;
 #include &lt;iostream&gt;
-
+//BZOJ难得一遇的水题
 #define p 100003LL
-
+//直接乘一下就行……
 typedef long long LL;
 
 using namespace std;
@@ -456,7 +467,7 @@ const int M = 80;
 int dp[M][M],a[M][M],next[M],p,n,m;
 char s[M];
 
-void Mul(int a[M][M],int b[M][M],int c[M][M]){
+void Mul(int a[M][M],int b[M][M],int c[M][M]){//矩阵乘法
     int d[M][M];
     for(int i=0;i&lt; m;i++){
         for(int j=0;j&lt; m;j++){
@@ -523,8 +534,9 @@ int main(){
     for(LL i=1;i&lt;=n;i++)g[i] += i;
     int h = 1,t = 0;q[++t] = 0;
     for(int i=1;i&lt;=n;i++){//维护单调队列
-        while(h &lt; t &amp;&amp; Slope(q[h],q[h+1]) &lt;= g[i])h++;
-        int w = q[h];//从队首取出答案
+        while(h &lt; t &amp;&amp; Slope(q[h],q[h+1]) &lt;= g[i])h++;//淘汰不优的点
+	//(因为g[i]是递增的,所以该点一定不能成为别的i的答案)
+        int w = q[h];//从队首取出最优答案
         dp[i] = dp[w] + (g[i] - g[w] - (LL)c) * (g[i] - g[w] - (LL)c);
         while(h &lt; t &amp;&amp; Slope(q[t],i) &lt; Slope(q[t-1],q[t]))t--;
         q[++t] = i;//维护下凸性并加入i点
