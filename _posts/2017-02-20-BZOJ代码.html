@@ -580,7 +580,64 @@ int main(){
     return 0;
 }
 </code></pre>
+<h1 id = "1012">1012</h1>
+<pre><code class = "c++">#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;iostream&gt;
+//比较简单的线段树 O(∩_∩)O
+//好像有更优的单调栈做法
+typedef long long LL;
 
+#define lc  (o * 2)
+#define rc  (o * 2 + 1)
+#define mid ((l + r) / 2)
+#define INF 1000000007
+
+using namespace std;
+
+const int Maxn = 200010;
+
+int m,n;
+LL Max[Maxn * 4],t,d,x;
+
+LL M(LL a,LL b){return a &gt; b ? a : b ;}
+
+void Add(int l,int r,int o){
+    // printf(&quot;&gt;&gt;&gt;%d %d\n&quot;,l,r);
+    if(l == r &amp;&amp; l == n){Max[o] = x;return;}
+    if(n &lt;= mid)Add(l,mid,lc);
+    if(n  &gt; mid)Add(mid+1,r,rc);
+    // printf(&quot;%d %d\n&quot;,o,Max[o]);
+    Max[o] = M(Max[lc],Max[rc]);
+    // printf(&quot;%d %d\n&quot;,o,Max[o]);
+}
+
+LL Query(int l,int r,int o,int a,int b){
+    // printf(&quot;%d %d %d %lld\n&quot;,l,r,o,Max[o]);
+    if(l == r)return Max[o];
+    if(l == a &amp;&amp; r == b)return Max[o];
+    else if(b &lt;= mid)return Query(l,mid,lc,a,b);
+    else if(a &gt;  mid)return Query(mid+1,r,rc,a,b);
+    else return M(Query(l,mid,lc,a,mid),Query(mid+1,r,rc,mid+1,b));
+}
+
+int main(){
+    // freopen(&quot;bzoj_1012.in&quot;,&quot;r&quot;,stdin);
+    // freopen(&quot;bzoj_1012.out&quot;,&quot;w&quot;,stdout);
+    scanf(&quot;%d%lld&quot;,&amp;m,&amp;d);
+    for(int i=1;i&lt;=m;i++){scanf(&quot;\n&quot;);
+        // printf(&quot;%d\n&quot;,Max[1]);
+        // printf(&quot;%d\n&quot;,n);
+        char c;scanf(&quot;%c%lld&quot;,&amp;c,&amp;x);
+        if(c == &#39;A&#39;){x = (x + t) % d;n++;Add(1,Maxn,1);}
+        else {
+            LL w = Query(1,Maxn,1,n-x+1,n);t = w;
+            printf(&quot;%lld\n&quot;,w);
+        }
+    }
+    return 0;
+}
+</code></pre>
 
 
 <!-- 多说评论框 start -->
