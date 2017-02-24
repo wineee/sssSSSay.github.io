@@ -678,7 +678,264 @@ int main(){
     return 0;
 }
 </code></pre>
+<h1 id = "1014">1014</h1>
+<pre><code class = "c++">#include &lt;time.h&gt;
+#include &lt;cstdio&gt;
+#include &lt;cstdlib&gt;
+#include &lt;cstring&gt;
+#include &lt;iostream&gt;
 
+#define base 107
+#define val (o -&gt; v)
+#define siz (o -&gt; s)
+#define pre (o -&gt; p)
+#define cha (o -&gt; c)
+#define Lc (o -&gt; ch[0])
+#define Rc (o -&gt; ch[1])
+
+using namespace std;
+
+const int Maxn = 100010;
+
+struct Treap {
+    unsigned int v;
+    int p,s;char c;
+    Treap* ch[2];
+}*Root;
+
+int n,len,m;
+char s[Maxn];
+unsigned int hs[Maxn];
+
+typedef pair&lt;Treap*,Treap*&gt; Troot;
+
+int Size(Treap* o){return o?siz:0;}
+
+inline Treap* NewNode(char k,int w){
+    Treap* o = new Treap();
+    val = (unsigned int)(k - 96);pre = w;siz = 1;cha = k;
+    return o;
+}
+
+inline void Update(Treap* o){//维护所属区间的哈希值
+    siz = 1 + Size(Lc) + Size(Rc);
+    val = (unsigned int)(cha - 96);
+    if(!Lc &amp;&amp; Rc)val = val + Rc -&gt; v * hs[1];
+    if(Lc &amp;&amp; !Rc)val = Lc -&gt; v + val * hs[Size(Lc)];
+    if(Lc &amp;&amp; Rc)val = Lc -&gt; v + val * hs[Size(Lc)] + Rc -&gt; v * hs[Size(Lc) + 1];
+}
+
+inline Treap* Merge(Treap* A,Treap* B){
+    if(A == NULL)return B;
+    if(B == NULL)return A;
+    if(A -&gt; p &lt; B -&gt; p){A -&gt; ch[1] = Merge(A -&gt; ch[1],B);Update(A);return A;}
+    else {B -&gt; ch[0] = Merge(A,B -&gt; ch[0]);Update(B);return B;}
+}
+
+inline Troot Split(Treap* o,int k){
+    Troot Temp(NULL,NULL);
+    if(o == NULL)return Temp;
+    int LcSize = Size(Lc),RcSize = Size(Rc);
+    if(k &lt;= LcSize){
+        Temp = Split(Lc,k);Lc = Temp.second;
+        Update(o);Temp.second = o;
+    }
+    else {
+        Temp = Split(Rc,k - LcSize - 1);
+        Rc = Temp.first;Update(o);Temp.first = o;
+    }return Temp;
+}
+
+inline unsigned int Get(int a,int b){//提取一段区间的哈希值
+    Troot t1,t2;t1 = Split(Root,a-1);t2 = Split(t1.second,b);
+    Update(t2.first);unsigned Res = t2.first -&gt; v;
+    t1.second = Merge(t2.first,t2.second);
+    Root = Merge(t1.first,t1.second);return Res;
+}
+
+inline int Query(int x,int y){//二分答案
+    int l = 1,r = min(len - x + 1,len - y + 1),Ans = 0;
+    while(l &lt;= r){
+        int mid = (l + r) / 2;
+        unsigned int t1 = Get(x,mid),t2 = Get(y,mid);
+        if(t1 == t2)l = mid + 1,Ans = mid;
+        else r = mid - 1;
+    }return Ans;
+}
+
+inline void Delete(int k){
+    Troot x,y;
+    x = Split(Root,k - 1);
+    y = Split(x.second,1);
+    Root = Merge(x.first,y.second);
+}
+
+inline void Insert(int w,char k){
+    Troot x;Treap* Temp;
+    x = Split(Root,w);
+    Temp = NewNode(k,rand());
+    x.first = Merge(x.first,Temp);
+    Root = Merge(x.first,x.second);
+}
+
+int main(){
+    freopen(&quot;bzoj_1014.in&quot;,&quot;r&quot;,stdin);
+    freopen(&quot;bzoj_1014.out&quot;,&quot;w&quot;,stdout);
+    srand(time(NULL));
+    gets(s + 1);len = strlen(s + 1);hs[0] = 1;
+    for(int i=1;i&lt; Maxn;i++)hs[i] = hs[i-1] * base;
+    for(int i=1;i&lt;=len;i++){
+        Treap *Now = NewNode(s[i],rand());
+        Root = Merge(Root,Now);
+    }
+    scanf(&quot;%d&quot;,&amp;m);
+    for(int i=1;i&lt;=m;i++){char c;int x,y;
+        scanf(&quot;\n&quot;);scanf(&quot;%c&quot;,&amp;c); 
+        if(c == &#39;Q&#39;){
+            scanf(&quot;%d%d&quot;,&amp;x,&amp;y);
+            printf(&quot;%d\n&quot;,Query(x,y));
+        }
+        else if(c == &#39;R&#39;){
+            scanf(&quot;%d&quot;,&amp;x);scanf(&quot;\n&quot;);scanf(&quot;%c&quot;,&amp;c);
+            Delete(x);Insert(x - 1,c);
+        }
+        else {
+            scanf(&quot;%d&quot;,&amp;x);scanf(&quot;\n&quot;);scanf(&quot;%c&quot;,&amp;c);
+            Insert(x,c);len++;//插入元素
+        }
+    }
+    return 0;
+}
+</code></pre>
+<h1 id = "1015">1015</h1>
+<pre><code class = "c++">#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;iostream&gt;
+
+using namespace std;
+
+const int Maxn = 400010;
+
+struct node {int to,next;}E[Maxn];
+
+bool vis[Maxn];
+int a[Maxn],n,tot,k,m,cnt,res;
+int H[Maxn],fa[Maxn],x[Maxn],y[Maxn],Ans[Maxn];
+
+int find(int x){return fa[x] == x ? x : fa[x] = find(fa[x]);}
+
+void Add(int u,int v){E[++cnt].to = v;E[cnt].next = H[u];H[u] = cnt;}
+
+int main(){
+    // freopen(&quot;bzoj_10154.in&quot;,&quot;r&quot;,stdin);
+    // freopen(&quot;bzoj~~~~~.out&quot;,&quot;w&quot;,stdout);
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+    for(int i=0;i&lt; n;i++)fa[i] = i;
+    for(int i=1;i&lt;=m;i++){
+        scanf(&quot;%d%d&quot;,&amp;x[i],&amp;y[i]);
+        Add(x[i],y[i]);Add(y[i],x[i]);
+    }scanf(&quot;%d&quot;,&amp;k);
+    for(int i=1;i&lt;=k;i++){
+        scanf(&quot;%d&quot;,&amp;a[i]);
+        vis[a[i]] = 1;
+    }
+    for(int i=0;i&lt; n;i++){
+        if(!vis[i]){
+            tot++;int u = i;
+            for(int j=H[u];j;j=E[j].next){
+                int v = E[j].to;
+                if(!vis[v]){
+                   int r1 = find(u),r2 = find(v);
+                    if(r1 != r2){fa[r1] = r2;tot--;}
+                }
+            }
+        }
+    }
+    Ans[++res] = tot;
+    for(int i=k;i&gt;=1;i--){
+        int u = a[i];vis[u] = 0;tot++;
+        for(int j=H[u];j;j=E[j].next){
+            int v = E[j].to;
+            if(!vis[v]){
+                int r1 = find(u),r2 = find(v);
+                if(r1 != r2){fa[r1] = r2;tot--;}
+            }
+        }Ans[++res] = tot;
+    }
+    for(int i=res;i&gt;=1;i--)printf(&quot;%d\n&quot;,Ans[i]);
+    // while(1);
+    return 0;
+}
+</code></pre>
+<h1 id = "1016">1016</h1>
+<pre><code class = "c++">#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+//MST如果用到w权值的边k条
+//那么任意一颗MST用到w权值的边都是k条
+//搜索方案 + 乘法原理可过
+#define p 31011
+
+using namespace std;
+
+const int Maxn = 10001;
+
+struct node {int u,v,c;}e[Maxn];
+struct noda {int l,r,v;}g[Maxn];
+
+int n,m,fa[Maxn],cnt,tot,Ans = 1,Sum;
+
+bool comp(node a,node b){return a.c &lt; b.c;}
+
+int find(int x){
+    // printf(&quot;%d\n&quot;,x);
+    return fa[x] == x ? x : find(fa[x]) ;
+}
+
+void Dfs(int w,int Now,int k){
+    if(Now == g[w].r + 1){
+        if(k == g[w].v)Sum++;//成立
+        return;
+    }
+    int r1 = find(e[Now].u),r2 = find(e[Now].v);
+    // printf(&quot;%d\n&quot;,g[w].r);
+    if(r1 != r2){
+        fa[r1] = r2;
+        Dfs(w,Now + 1,k + 1);
+        fa[r1] = r1;fa[r2] = r2;
+    }Dfs(w,Now + 1,k);
+}
+
+int main(){
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+    for(int i=1;i&lt;=n;i++)fa[i] = i;
+    for(int i=1;i&lt;=m;i++)scanf(&quot;%d%d%d&quot;,&amp;e[i].u,&amp;e[i].v,&amp;e[i].c);
+    sort(e + 1,e + m + 1,comp);
+    for(int i=1;i&lt;=m;i++){
+        if(e[i].c != e[i-1].c){g[++cnt].l = i;g[cnt-1].r = i - 1;}
+        int r1 = find(e[i].u),r2 = find(e[i].v);
+        if(r1 != r2){
+            g[cnt].v++;tot++;
+            fa[r1] = r2;
+        }
+    }g[cnt].r = m;
+    for(int i=1;i&lt;=n;i++)fa[i] = i;
+    if(tot != n - 1){printf(&quot;0\n&quot;);return 0;}
+    for(int i=1;i&lt;=cnt;i++){
+        Sum = 0;Dfs(i,g[i].l,0);Ans = (Ans * Sum) % p;
+        for(int j=g[i].l;j&lt;=g[i].r;j++){
+            // printf(&quot;%d %d\n&quot;,e[j].u,e[j].v);
+            int r1 = find(e[j].u),r2 = find(e[j].v);
+
+            // printf(&quot;!!!&quot;);
+            if(r1 != r2)fa[r1] = r2;
+        }
+    }printf(&quot;%d\n&quot;,Ans % p);
+    // while(1);
+    return 0;
+}
+</code></pre>
 
 <!-- 多说评论框 start -->
 	<div class="ds-thread" data-thread-key="10005" data-title="BZOj" data-url="https://ssssssay.github.io/sssSSSay.github.io/2017/02/20/BZOJ%E4%BB%A3%E7%A0%81.html"></div>
