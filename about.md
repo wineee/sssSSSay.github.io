@@ -1,10 +1,7 @@
 ---
-title: About sSay
-layout: post
+layout: page
+title: 关于
 permalink: /about/
-published: true
 ---
 
-OIer
-
-For more article please visit [http://blog.csdn.net/ssssssay](http://blog.csdn.net/ssssssay)
+请自行修改根目录下about.md文件
