@@ -21,7 +21,7 @@ permalink: /about/
 企鹅号：腰094238312
 ~\(≧▽≦)/~
 ## Some words
->                     <font color = "#9B30FF">私たちはぬかるみの中、星空見上げている人がいる</font>
+><font color = "#9B30FF"> 　　　　　　　　　　　　　私たちはぬかるみの中、星空見上げている人がいる</font>
 
 {% highlight cpp %}
 #include <iostream>
