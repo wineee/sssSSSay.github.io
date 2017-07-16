@@ -3,10 +3,10 @@ layout: page
 title: About
 permalink: /about/
 ---
-酱油选手  
-兼退役选手   
-兼爆零选手   
-兼文化课选手  
+## 酱油选手  
+## 兼退役选手   
+## 兼爆零选手   
+## 兼文化课选手  
 の<font color = "##8A2BE2">咸鱼</font> sssSSSay   
 君の名   
 由于这个名字太长所以...   
