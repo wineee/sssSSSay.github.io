@@ -3,13 +3,11 @@ layout: default
 title: About
 permalink: /about/
 ---
-
 # 酱油选手
 ## 兼退役选手
 ### 兼爆零选手
 #### 兼文化课选手
-#### の<font color = "##8A2BE2">咸鱼</font> sssSSSay
-* * *
+#### の<font color = "##8A2BE2">咸鱼</font> sssSSSay   
 # 君の名
 由于这个名字太长所以...   
 #### <font color = "#EE0000">sSay</font> is short for sssSSSay
@@ -18,8 +16,7 @@ permalink: /about/
 > 欲言又止  
 
 也就是这个   
-![say](http://imglf1.nosdn.127.net/img/L3owcXMvOE5FVmh1RUIvVkZPRmpZdzdFRjRaekhQYm8zTHVXdjRFYjJ0dGJmd2JWTW9QclVnPT0.png?imageView&thumbnail=500x0&quality=96&stripmeta=0&type=jpg)
-* * *
+![say](http://imglf1.nosdn.127.net/img/L3owcXMvOE5FVmh1RUIvVkZPRmpZdzdFRjRaekhQYm8zTHVXdjRFYjJ0dGJmd2JWTW9QclVnPT0.png?imageView&thumbnail=500x0&quality=96&stripmeta=0&type=jpg)   
 # Contact
 企鹅号：腰094238312
 ~\(≧▽≦)/~
