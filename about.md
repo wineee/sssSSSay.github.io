@@ -22,7 +22,7 @@ permalink: /about/
 # Contact
 企鹅号：腰094238312
 ~\(≧▽≦)/~
-```c++
+```
 #include <iostream>
 using namespace std;
 int main() {
