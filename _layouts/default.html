@@ -1,16 +1,12 @@
 <!DOCTYPE html>
 <html>
-
-  {% include head.html %}
-
-  <body>
-
-    {% include header.html %}
-
-    <div class="page-content">
-        {{ content }}
-    </div>
-    {% include analytics.html %}
-  </body>
-
+    <head>
+        <meta charset="utf-8">
+        <title>test</title>
+    </head>
+    <body>
+          {{ page.title }}
+          {{ page.date }}
+          {{ content }}
+    </body>
 </html>
