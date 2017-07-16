@@ -27,7 +27,7 @@ permalink: /about/
 ## Some words
 ><font color = "#9B30FF">　　　　　　　　　　　　　　　　　　　私たちはぬかるみの中、星空見上げている人がいる　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
 　 　　　　　　　　　　　　　　　　　　　To see a world in a grain of sand,and a heaven in a wild flower</font>
-* * *
+
 {% highlight cpp %}#include <iostream>
 using namespace std;
 int main() {
