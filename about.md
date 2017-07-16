@@ -20,11 +20,11 @@ permalink: /about/
 ## Contact
 企鹅号：腰094238312
 ~\(≧▽≦)/~
-```html
+{% highlight cpp %} 
 #include <iostream>
 using namespace std;
 int main() {
   while(true) puts("Welcome to sSay's blog.");
   return 0;
 }
-```
+{% endhighlight %}
