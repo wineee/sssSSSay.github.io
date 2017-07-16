@@ -33,11 +33,34 @@
 
     .page-link {
         color: #444;
-    }
-    .page-link {
-        display: block;
+        display: inline-block;
         padding: 5px 10px;
+        margin: 0 10px;
+        float: left;
     }
+}
+.post-categories {
+  float: left;
+  line-height: 56px;
+
+  .category-link {
+      color: #444;
+      display: inline-block;
+      padding: 5px 10px;
+      margin: 0 10px;
+      float: left;
+      &:first-child {
+        margin-left: 0;
+      }
+      &.active:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        border-top: 1px solid;
+      }
+  }
 }
 
 /**
