@@ -20,6 +20,9 @@ permalink: /about/
 ## Contact
 企鹅号：腰094238312
 ~\(≧▽≦)/~
+## Some words
+> 私たちはぬかるみの中、星空見上げている人がいる      
+
 {% highlight cpp %} 
 #include <iostream>
 using namespace std;
