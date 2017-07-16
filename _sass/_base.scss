@@ -93,7 +93,7 @@ h1, h2, h3, h4, h5, h6 {
 a {
     color: #e33;
     text-decoration: none;
-    position: absolute;
+    position: relative;
     display: inline-block;
     padding-bottom: 2px;
 
@@ -141,7 +141,7 @@ pre {
 
 code {
     padding: 0.063em;
-    font-family: 'Consolas';
+    font-family: 'Source Code Pro';
 }
 
 /**
