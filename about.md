@@ -1,6 +1,7 @@
 ---
 layout: page
 title: About
+permalink: /about/
 ---
 ## About me
 目前高三生,在HE某著名(?)中学过着水深火热的生活  
