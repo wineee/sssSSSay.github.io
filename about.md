@@ -24,11 +24,11 @@ title: About
 企鹅号：腰094238312
 ~\(≧▽≦)/~   
 ## Some words
-><font color = "#9B30FF">私たちはぬかるみの中、星空見上げている人がいる</font>
+><font color = "#9B30FF">私たちはぬかるみの中、星空見上げている人がいる——奥斯卡·王尔德</font>
 
-><font color = "#9B30FF">To see a world in a grain of sand,and a heaven in a wild flower</font>
+><font color = "#9B30FF">To see a world in a grain of sand,and a heaven in a wild flower——威廉·布莱克</font>
 
-><font color = "#9B30FF">真实就是无法醒来。不管怎么哭喊怎么大闹，就是无法从那样的梦中清醒过来，这就是现实</font>
+><font color = "#9B30FF">真实就是无法醒来。不管怎么哭喊怎么大闹，就是无法从那样的梦中清醒过来，这就是现实——王小波</font>
 
 
 {% highlight cpp %}#include <iostream>
