@@ -3,8 +3,12 @@
 
   {% include head.html %}
 
-  <body>
-
+  <body style="overflow: hidden;">
+    <div class="slider" id="slider">
+      <img data-slidr="one" src="/css/cover-1.jpg">
+      <img data-slidr="two" src="/css/cover-2.jpg">
+      <img data-slidr="three" src="/css/cover-3.jpg">
+    </div>
     <div class="cover">
       <div class="clock"></div>
       <div class='hours'></div>
@@ -18,31 +22,34 @@
         </div>
       </div>
     </div>
-
-    <header class="site-header">
-
-      <div class="wrapper">
-        <nav class="post-categories">
-          {% for category in site.categories %}
-            <a class="category-link" onclick="changeCategory('{{ category | first }}',this);" href="javascript:void(0);">{{ category | first }}</a>
-          {% endfor %}
-        </nav>
-        <nav class="site-nav">
-            {% for page in site.pages %}
-              {% if page.title %}
-              <a class="page-link" href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
-              {% endif %}
+    <div class="container">
+      <header class="site-header">
+        <div class="wrapper">
+          <nav class="post-categories">
+            {% for category in site.categories %}
+              <a class="category-link" onclick="changeCategory('{{ category | first }}',this);" href="javascript:void(0);">{{ category | first }}</a>
             {% endfor %}
-        </nav>
+          </nav>
+          <nav class="site-nav">
+              {% for page in site.pages %}
+                {% if page.title %}
+                <a class="page-link" href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
+                {% endif %}
+              {% endfor %}
+          </nav>
+        </div>
+      </header>
+      <div class="page-content">
+          <div class="home">
+            <ul id="content" class="post-list"></ul>
+          </div>
       </div>
-    </header>
-    <div class="page-content">
-        <div class="home">
-          <ul id="content" class="post-list"></ul>
-        </div
+      {% include analytics.html %}
     </div>
-    {% include analytics.html %}
-
+    <div class="loading">
+      <div class="square-spin"><div></div></div>
+    </div>
+<script src="/js/slidr.min.js"></script>
 <script>
   setInterval(function() {
     var seconds = new Date().getSeconds();
@@ -105,6 +112,29 @@
   var first = $('.category-link')[0];
   changeCategory(first.innerHTML,first);
 
+  slidr.create('slider', {
+    breadcrumbs: false,
+    controls: 'none',
+    overflow: true
+  }).add('h', ['one', 'two', 'three', 'one'],'fade').auto(5000);
+  var loadingTime = 0;
+  var timer = setInterval(function () {
+    console.log('abc');
+    var height = parseInt($('#slider')[0].style.height);
+    if (height > 0) {
+      $('.cover')[0].style.height = height + 10 + 'px';
+      if (loadingTime > 500) {
+        clearInterval(timer);
+        var loading = $('.loading')[0];
+        document.body.style.overflow = 'auto';
+        loading.style.opacity = 0;
+        setTimeout(function () {
+          loading.parentNode.removeChild(loading);
+        }, 500);
+      }
+    }
+    loadingTime += 10;
+  },10);
 </script>
 
 </body>

@@ -2,7 +2,7 @@
  * Site header
  */
 .site-header {
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: 'Source Sans Pro', 'Microsoft Yahei', sans-serif;
     min-height: 56px;
     max-width: 940px;
     margin: 0 auto;
@@ -102,7 +102,7 @@
  * Posts
  */
 .post-header {
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: 'Source Sans Pro' ,'Microsoft Yahei' , sans-serif;
     color: #373737;
     max-width: 960px;
     padding: 0px 10px;
@@ -163,7 +163,7 @@
 
     h4 {
         font-size: 20px;
-        font-family: 'Source Sans Pro', sans-serif;
+        font-family: 'Source Sans Pro','Microsoft Yahei' , sans-serif;
 
         @include media-query($on-laptop) {
             font-size: 18px;
@@ -208,8 +208,9 @@
     padding: 0 10px;
 }
 
-.home  a {
-    font-family: 'Open Sans', sans-serif;
+.home a {
+    font-family: 'Source Sans Pro', 'Microsoft Yahei', sans-serif;
+    font-weight: lighter;
     font-size: 36px;
     color: #444;
     padding: 10px;
@@ -227,16 +228,93 @@
 .home .post-meta {
     text-align: right;
 }
-
-.cover {
-    color: rgb(241, 241, 241);
-    height: 100%;
-    background: url('cover.jpg') no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+.container {
+  background-color: #fff;
+  position: relative;
+  padding-bottom: 20px;
 }
+.cover {
+    position: relative;
+    color: rgb(241, 241, 241);
+    max-height: 100%;
+}
+.slider {
+    position: fixed !important;
+    width: 100%;
+    max-height: 100%;
+    overflow: hidden;
+}
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  z-index: 99999;
+  opacity: 1;
+  -webkit-transition: opacity .5s;
+  -moz-transition: opacity .5s;
+  -mz-transition: opacity .5s;
+  -o-transition: opacity .5s;
+  transition: opacity .5s;
+}
+.square-spin {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -25px 0 0 -25px;
+}
+/**
+ * Copyright (c) 2016 Connor Atherton
+ *
+ * All animations must live in their own file
+ * in the animations directory and be included
+ * here.
+ *
+ */
+/**
+ * Styles shared by multiple animations
+ */
+
+@-webkit-keyframes square-spin {
+  25% {
+    -webkit-transform: perspective(100px) rotateX(180deg) rotateY(0);
+            transform: perspective(100px) rotateX(180deg) rotateY(0); }
+  50% {
+    -webkit-transform: perspective(100px) rotateX(180deg) rotateY(180deg);
+            transform: perspective(100px) rotateX(180deg) rotateY(180deg); }
+  75% {
+    -webkit-transform: perspective(100px) rotateX(0) rotateY(180deg);
+            transform: perspective(100px) rotateX(0) rotateY(180deg); }
+  100% {
+    -webkit-transform: perspective(100px) rotateX(0) rotateY(0);
+            transform: perspective(100px) rotateX(0) rotateY(0); } }
+
+@keyframes square-spin {
+  25% {
+    -webkit-transform: perspective(100px) rotateX(180deg) rotateY(0);
+            transform: perspective(100px) rotateX(180deg) rotateY(0); }
+  50% {
+    -webkit-transform: perspective(100px) rotateX(180deg) rotateY(180deg);
+            transform: perspective(100px) rotateX(180deg) rotateY(180deg); }
+  75% {
+    -webkit-transform: perspective(100px) rotateX(0) rotateY(180deg);
+            transform: perspective(100px) rotateX(0) rotateY(180deg); }
+  100% {
+    -webkit-transform: perspective(100px) rotateX(0) rotateY(0);
+            transform: perspective(100px) rotateX(0) rotateY(0); } }
+
+.square-spin > div {
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;
+  width: 50px;
+  height: 50px;
+  background: #32ADE8;
+  -webkit-animation: square-spin 3s 0s cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite;
+          animation: square-spin 3s 0s cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite; }
 
 /**
  * clock css
@@ -252,6 +330,7 @@
     font-size: 18pt;
     border-radius: 50%;
     background-color: rgba(81, 81, 81, 0.2);
+    z-index: 2;
 }
 
 .minutes {
@@ -265,6 +344,7 @@
     font-size: 52pt;
     border-radius: 50%;
     background-color: rgba(126, 126, 126, 0.7);
+    z-index: 1;
 }
 
 .hours {
@@ -278,15 +358,17 @@
     font-size: 133pt;
     border-radius: 50%;
     background-color: rgba(181, 181, 181, 0.4);
+    z-index: 1;
 }
 
 .site-name {
-    max-width: 940px;
-    padding: 0 10px;
-    margin: 0 auto;
+    width: 960px;
     text-align: right;
-    position: relative;
-    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: -480px;
+    z-index: 1;
 }
 
 .site-name__inner {
@@ -299,12 +381,12 @@
 
 .site-name__inner .name {
     font-size: 100px;
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: 'Source Sans Pro', 'Microsoft Yahei', sans-serif;
 }
 
 .site-name__inner .desc {
     font-size: 20px;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Source Sans Pro', 'Microsoft Yahei', sans-serif;
 }
 
 .site-name__inner .btn {
