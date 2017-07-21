@@ -237,6 +237,7 @@
     position: relative;
     color: rgb(241, 241, 241);
     max-height: 100%;
+    z-index: -1;
 }
 .slider {
     position: fixed !important;
@@ -319,6 +320,9 @@
 /**
  * clock css
  */
+.clock {
+  color: #f1f1f1;
+}
 .seconds {
     width: 40px;
     height: 40px;
@@ -369,6 +373,7 @@
     left: 50%;
     margin-left: -480px;
     z-index: 1;
+    color: #f1f1f1;
 }
 
 .site-name__inner {

@@ -9,17 +9,17 @@
       <img data-slidr="two" src="/css/cover-2.jpg">
       <img data-slidr="three" src="/css/cover-3.jpg">
     </div>
-    <div class="cover">
-      <div class="clock"></div>
+    <div class="cover"></div>
+    <div class="clock">
       <div class='hours'></div>
       <div class='seconds'></div>
       <div class='minutes'></div>
-      <div class="site-name">
-        <div class="site-name__inner">
-          <div class="name">{{ site.title }}</div>
-          <div class="desc">{{site.description}}</div>
-          <div class="btn">文章</div>
-        </div>
+    </div>
+    <div class="site-name">
+      <div class="site-name__inner">
+        <div class="name">{{ site.title }}</div>
+        <div class="desc">{{site.description}}</div>
+        <div class="btn">文章</div>
       </div>
     </div>
     <div class="container">
@@ -113,13 +113,12 @@
   changeCategory(first.innerHTML,first);
 
   slidr.create('slider', {
-    breadcrumbs: false,
+    breadcrumbs: true,
     controls: 'none',
     overflow: true
   }).add('h', ['one', 'two', 'three', 'one'],'fade').auto(5000);
   var loadingTime = 0;
   var timer = setInterval(function () {
-    console.log('abc');
     var height = parseInt($('#slider')[0].style.height);
     if (height > 0) {
       $('.cover')[0].style.height = height + 10 + 'px';
