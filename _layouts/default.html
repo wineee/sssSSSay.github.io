@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-
 <html>
     {% include head.html %}
     <body>
         {% include header.html %}
-        <div class="page-content">
-            {{ content }}
+        {{ content }}
+        <div class="container">
+          {% include analytics.html %}
         </div>
-        {% include analytics.html %}
+    <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </body>
 </html>

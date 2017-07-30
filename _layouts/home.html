@@ -1,141 +1,106 @@
 <!DOCTYPE html>
 <html>
-
-  {% include head.html %}
-
-  <body style="overflow: hidden;">
-    <div class="slider" id="slider">
-      <img data-slidr="one" src="/css/cover-1.jpg">
-      <img data-slidr="two" src="/css/cover-2.jpg">
-      <img data-slidr="three" src="/css/cover-3.jpg">
-    </div>
-    <div class="cover"></div>
-    <div class="clock">
-      <div class='hours'></div>
-      <div class='seconds'></div>
-      <div class='minutes'></div>
-    </div>
-    <div class="site-name">
-      <div class="site-name__inner">
-        <div class="name">{{ site.title }}</div>
-        <div class="desc">{{site.description}}</div>
-        <div class="btn">文章</div>
+{% include head.html %}
+<body>
+  <div id="cover" class="carousel slide cover" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#cover" data-slide-to="0" class="active"></li>
+      <li data-target="#cover" data-slide-to="1"></li>
+      <li data-target="#cover" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner" id="cover-inner">
+      <div class="item active">
+        <img src="css/cover-1.jpg" alt="1">
+      </div>
+      <div class="item">
+        <img src="css/cover-2.jpg" alt="2">
+      </div>
+      <div class="item">
+        <img src="css/cover-3.jpg" alt="3">
       </div>
     </div>
+    <a class="left carousel-control" href="#cover" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    </a>
+    <a class="right carousel-control" href="#cover" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    </a>
     <div class="container">
-      <header class="site-header">
-        <div class="wrapper">
-          <nav class="post-categories">
-            {% for category in site.categories %}
-              <a class="category-link" onclick="changeCategory('{{ category | first }}',this);" href="javascript:void(0);">{{ category | first }}</a>
-            {% endfor %}
-          </nav>
-          <nav class="site-nav">
-              {% for page in site.pages %}
-                {% if page.title %}
-                <a class="page-link" href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
-                {% endif %}
-              {% endfor %}
-          </nav>
-        </div>
-      </header>
-      <div class="page-content">
-          <div class="home">
-            <ul id="content" class="post-list"></ul>
-          </div>
+      <div class="jumbotron site-name">
+        <h1>{{ site.title }}</h1>
+        <p>{{ site.description }}</p>
+        <p><a class="post-btn btn btn-primary btn-lg hidden-xs" href="#post">文章</a></p>
+        <p><a class="post-btn btn btn-primary visible-xs-inline-block" href="#post">文章</a></p>
       </div>
-      {% include analytics.html %}
     </div>
-    <div class="loading">
-      <div class="square-spin"><div></div></div>
+  </div>
+  <nav class="navbar navbar-default hidden-xs post-category">
+    <div class="container-fluid">
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav" id="category-list">
+          {% for category in site.categories %}
+          <li data-name="{{ category | first }}"><a href="javascript:void(0);">{{ category | first }}</a></li>
+          {% endfor %}
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          {% for page in site.pages %}
+            {% if page.title %}
+              <li><a href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a></li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
     </div>
-<script src="/js/slidr.min.js"></script>
+  </nav>
+  <div class="dropdown category-dropdown visiable-xm-inline">
+    <button type="button" class="navbar-toggle collapsed category-btn" data-toggle="dropdown">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <ul class="dropdown-menu" id="category-menu">
+      {% for category in site.categories %}
+      <li class="category" data-name="{{ category | first }}"><a href="javascript:void(0);">{{ category | first }}</a></li>
+      {% endfor %}
+      <li class="divider"></li>
+      {% for page in site.pages %}
+      {% if page.title %}
+      <li><a href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a></li>
+      {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="container post-title" id="post">
+    <div class="row" id="content"></div>
+  </div>
+  <div class="container" id="analytics">
+    {% include analytics.html %}
+  </div>
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script>
-  setInterval(function() {
-    var seconds = new Date().getSeconds();
-    var sdegree = seconds * 6 + 270;
-    seconds = ("0" + seconds).slice(-2);
-    var secondSel = document.querySelector(".seconds");
-
-    secondSel.style.transform = "rotate(" + sdegree + "deg) translate(160px) rotate(-" + sdegree + "deg)";
-    secondSel.innerHTML = seconds;
-
-    var minutes = new Date().getMinutes();
-    var mdegree = minutes * 6 + 270;
-    var minutesSel = document.querySelector(".minutes");
-    minutes = ("0" + minutes).slice(-2);
-
-    minutesSel.style.transform = "rotate(" + mdegree + "deg) translate(181px) rotate(-" + mdegree + "deg)";
-    minutesSel.innerHTML =  minutes;
-
-    var hours = new Date().getHours();
-    var hoursSel = document.querySelector(".hours");
-
-    hours = ("0" + hours).slice(-2);
-
-    hoursSel.innerHTML = hours;
-  }, 1000);
-
-  var btnSel = document.querySelector('.btn');
-  var header = document.getElementsByTagName('header')[0];
-
-  btnSel.addEventListener("click", function() {
-    header.scrollIntoView();
-  }, false);
-
-  // 文章分类
-
-  function $ (query) {
-    return ele = document.querySelectorAll(query);
-  }
   var dataStr = '{ {% for cat in site.categories %}{% if cat[0] != site.categories.first[0] %},{% endif %}"{{ cat[0] }}":[{% for post in cat[1] %}{% if post != cat[1].first %},{% endif %}{"url":"{{post.url}}", "title":"{{post.title}}", "date":"{{post.date | date:"%b %-d, %Y"}}"}{% endfor %}]{% endfor %} }',
-      data = JSON.parse(dataStr);
-
-  function changeCategory (name, ele) {
-    if (typeof data[name] !== 'undefined') {
-      var tpl = '';
-      for (var i = 0; i < data[name].length; i++) {
-        tpl += '<li><a class="post-link" href="' + data[name][i].url + '">'+
-            data[name][i].title +
-                '<div class="post-meta">' + data[name][i].date + '</div>'+
-            '</a>'+
-            '</li>';
+      data = $.parseJSON(dataStr);
+  console.log(data);
+  $(function () {
+    var content = $('#content');
+    $('#cover-inner').css('maxHeight', window.innerHeight);
+    function changeCategory () {
+      var e = $(this);
+      var name = e.data('name');
+      var html = '';
+      e.addClass('active').siblings('.active').removeClass('active');
+      for (var i = 0;i < data[name].length;i++) {
+        html += '<a class="col-12" href="' + data[name][i].url +'"><h2 class="title">'+ data[name][i].title +'</h2><p class="date">'+ data[name][i].date +'</p></a>';
       }
-      $('#content')[0].innerHTML = tpl;
-      var active = $('.category-link.active');
-      if (active.length > 0) {
-        active[0].className = 'category-link';
-      }
-      ele.className += ' active';
+      content.html(html);
     }
-  }
-  var first = $('.category-link')[0];
-  changeCategory(first.innerHTML,first);
+    $('#category-list').on('click','li',changeCategory);
+    $('#category-menu').on('click','.category',changeCategory);
+    $('#category-list').children().eq(0).click();
+    $('#category-menu').children().eq(0).click();
+  });
 
-  slidr.create('slider', {
-    breadcrumbs: true,
-    controls: 'none',
-    overflow: true
-  }).add('h', ['one', 'two', 'three', 'one'],'fade').auto(5000);
-  var loadingTime = 0;
-  var timer = setInterval(function () {
-    var height = parseInt($('#slider')[0].style.height);
-    if (height > 0) {
-      $('.cover')[0].style.height = height + 10 + 'px';
-      if (loadingTime > 500) {
-        clearInterval(timer);
-        var loading = $('.loading')[0];
-        document.body.style.overflow = 'auto';
-        loading.style.opacity = 0;
-        setTimeout(function () {
-          loading.parentNode.removeChild(loading);
-        }, 500);
-      }
-    }
-    loadingTime += 10;
-  },10);
 </script>
-
 </body>
-
 </html>
