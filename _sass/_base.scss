@@ -1,5 +1,12 @@
-html {
-  font-family: "Source Hans Pro",'微软雅黑';
+h1,h2,h3,h4,h5,h6,a,p,div {
+  font-family: "Source Hans Pro", "Microsoft Yahei" !important;
+  -webkit-font-smoothing: antialiased;
+}
+.highlight * {
+  font-family: "Source Code Pro", Consolas;
+}
+a,a:active,a:visited,a:hover,a:focus {
+  text-decoration: none;
 }
 img {
   max-width: 100%;
@@ -69,7 +76,6 @@ img {
       font-weight: lighter;
     }
     &:hover {
-      text-decoration: none;
       border-color: #C3D5E4;
       background: #fafafd;
     }
@@ -86,9 +92,6 @@ img {
   text-align: right;
   a {
     color: #444 !important;
-    &:hover {
-      text-decoration: none;
-    }
   }
 }
 .page-nav {
