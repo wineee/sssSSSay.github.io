@@ -1,190 +1,112 @@
-/**
- * Reset some basic elements
- */
-body, h1, h2, h3, h4, h5, h6,
-p, blockquote, pre, hr,
-dl, dd, ol, ul, figure {
-    margin: 0;
-    padding: 0;
+h1,h2,h3,h4,h5,h6,a,p,div {
+  font-family: "Source Hans Pro", "Microsoft Yahei" !important;
+  -webkit-font-smoothing: antialiased;
 }
-
-html, body{
-    height: 100%;
+.highlight * {
+  font-family: "Source Code Pro", Consolas;
 }
-
-/**
- * Basic styling
- */
-body {
-    font-family: $base-font-family;
-    font-size: $base-font-size;
-    line-height: $base-line-height;
-    font-weight: 300;
-    color: $text-color;
-    background-color: $background-color;
-    -webkit-text-size-adjust: 100%;
+a,a:active,a:visited,a:hover,a:focus {
+  text-decoration: none;
 }
-
-
-
-/**
- * Set `margin-bottom` to maintain vertical rhythm
- */
-h1, h2, h3, h4, h5, h6,
-p, blockquote, pre,
-ul, ol, dl, figure,
-%vertical-rhythm {
-    margin-bottom: $spacing-unit / 2;
-}
-
-
-
-/**
- * Images
- */
 img {
-    max-width: 100%;
-    vertical-align: middle;
+  max-width: 100%;
+}
+.site-name {
+  position: absolute;
+  right: 10%;
+  top: 20%;
+  background: none;
+  text-align: right;
+  color: #FFF;
+}
+.post-btn {
+  background: transparent;
+  border-radius: 3px;
+  border: 1px solid #FFF;
+  padding: 6px 20px;
+  &:hover,&:active,&:focus {
+    background: none !important;
+    border-color: #FFF !important;
+  }
+}
+.post-btn.btn-lg {
+  padding: 12px 40px;
+}
+.post-category {
+  background: none;
+  border: none;
+  a:hover {
+    color: #444 !important;
+  }
+  li {
+    margin: 0 4px;
+  }
+  .active {
+    a {
+      background: none !important;
+    }
+    border-bottom: 2px solid #444;
+  }
+}
+.category-dropdown {
+  float: right;
+  .dropdown-menu {
+    right: 16px;
+    left: auto;
+  }
+}
+.category-btn {
+  border-color: #444;
+  .icon-bar {
+    background-color: #444;
+  }
 }
 
-
-
-/**
- * Figures
- */
-figure > img {
+.post-title {
+  margin-top: 8px;
+  a {
     display: block;
-}
-
-figcaption {
-    font-size: $small-font-size;
-}
-
-
-
-/**
- * Lists
- */
-ul, ol {
-    margin-left: $spacing-unit;
-}
-
-li {
-    > ul,
-    > ol {
-         margin-bottom: 0;
-    }
-}
-
-
-
-/**
- * Headings
- */
-h1, h2, h3, h4, h5, h6 {
-    font-weight: 300;
-}
-
-
-
-/**
- * Links
- */
-a {
-    color: #e33;
-    text-decoration: none;
-    position: relative;
-    display: inline-block;
-    padding-bottom: 2px;
-
-    &:hover {
-        &::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            border-top: 1px solid;
-        }
-    }
-}
-
-
-
-/**
- * Blockquotes
- */
-blockquote {
-    color: $grey-color;
-    border-left: 4px solid $grey-color-light;
-    padding-left: $spacing-unit / 2;
-    font-size: 18px;
-    letter-spacing: -1px;
-    font-style: italic;
-
-    > :last-child {
-        margin-bottom: 0;
-    }
-}
-
-
-pre {
-    max-width: 940px;
-    display: block;
-    font-size: 1em;
-    font-family: Consolas;
-    color: #333;
-    line-height: 1.3em;
-    margin: 0px auto;
+    cursor: pointer;
+    margin: 24px 12px;
     padding: 10px;
-}
-
-code {
-    padding: 0.063em;
-    font-family: 'Consolas';
-}
-
-/**
- * Clearfix
- */
-%clearfix {
-
-    &:after {
-        content: "";
-        display: table;
-        clear: both;
+    color: #444;
+    border: 1px solid transparent;
+    h2 {
+      margin: 0;
+      font-weight: lighter;
     }
-}
-
-
-
-/**
- * Icons
- */
-.icon {
-
-    > svg {
-        display: inline-block;
-        width: 16px;
-        height: 16px;
-        vertical-align: middle;
-
-        path {
-            fill: $grey-color;
-        }
+    &:hover {
+      border-color: #C3D5E4;
+      background: #fafafd;
     }
+    .date {
+      margin: 8px 0 0 0;
+      text-align: right;
+      color: #828282;
+    }
+  }
 }
 
 #analytics {
-    width: 960px;
-    margin: 20px auto;
-    color: #444444;
-    a {
-        color: #444444 !important;
-    }
+  margin: 12px auto;
+  text-align: right;
+  a {
+    color: #444 !important;
+  }
+}
+.page-nav {
+  border: none;
+  background: none;
+}
+@media screen and (max-width:768px) {
+  .site-name {
+    top: 5%;
+  }
 }
 
-#uyan_frame {
-    width: 960px;
-    margin: 0 auto;
+@media screen and (max-width:480px) {
+  .site-name {
+    margin: 0;
+    padding: 0;
+  }
 }
