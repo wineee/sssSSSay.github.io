@@ -3,7 +3,7 @@ layout: page
 title: About
 ---
 ## About me
-目前高三生,在HE某著名(?)中学过着水深火热的生活  
+目前在CQU学习，专业计科
 **蒟蒻属性Max**   
 **沙茶属性Max**   
 ## 酱油选手  
